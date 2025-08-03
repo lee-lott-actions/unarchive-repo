@@ -43,7 +43,7 @@ This GitHub Action unarchives a specified GitHub repository using the GitHub API
        steps:
          - name: Unarchive Repository
            id: unarchive
-           uses: la-actions/unarchive-repo@v1.0.0
+           uses: lee-lott-actions/unarchive-repo@v1.0.0
            with:
              repo-name: ${{ github.event.inputs.repo-name }}
              token: ${{ secrets.GITHUB_TOKEN }}
