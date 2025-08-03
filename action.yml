@@ -1,6 +1,6 @@
 name: Unarchive Repository
 description: A GitHub Action to unarchive a specified GitHub repository using the GitHub API
-author: Louisiana Office of Technology Services
+author: Lee Lott
 
 inputs:
   repo-name:
