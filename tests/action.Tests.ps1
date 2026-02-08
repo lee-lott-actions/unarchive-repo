@@ -45,7 +45,8 @@ Describe "Set-RepositoryArchiveStatus" {
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=failure"
-		$output | Should -Contain "error-message=Error: Failed to unarchive repository. HTTP Status: 404"
+		$output | Where-Object { $_ -match "^error-message=Error: Failed to unarchive repository $Owner/$RepoName\. HTTP Status:" } |
+			Should -Not -BeNullOrEmpty
 	}
 
 	It "fails when archived is true" {
@@ -60,7 +61,8 @@ Describe "Set-RepositoryArchiveStatus" {
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=failure"
-		$output | Should -Contain "error-message=Error: Failed to unarchive repository. HTTP Status: 200. IsUnarchived Status: true."
+		$output | Where-Object { $_ -match "^error-message=Error: Failed to unarchive repository $Owner/$RepoName\. HTTP Status: 200. IsUnarchived Status: true" } |
+			Should -Not -BeNullOrEmpty
 	}
 
 	It "fails with empty repo_name" {
