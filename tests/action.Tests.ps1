@@ -27,7 +27,7 @@ Describe "Set-RepositoryArchiveStatus" {
 			}
 		}
 
-		Unarchive-Repo -RepoName $RepoName -Token $Token -Owner $Owner
+		Set-RepositoryArchiveStatus -RepoName $RepoName -Token $Token -Owner $Owner
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=success"
@@ -41,7 +41,7 @@ Describe "Set-RepositoryArchiveStatus" {
 			}
 		}
 
-		Unarchive-Repo -RepoName $RepoName -Token $Token -Owner $Owner
+		Set-RepositoryArchiveStatus -RepoName $RepoName -Token $Token -Owner $Owner
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=failure"
@@ -56,7 +56,7 @@ Describe "Set-RepositoryArchiveStatus" {
 			}
 		}
 
-		Unarchive-Repo -RepoName $RepoName -Token $Token -Owner $Owner
+		Set-RepositoryArchiveStatus -RepoName $RepoName -Token $Token -Owner $Owner
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=failure"
@@ -64,7 +64,7 @@ Describe "Set-RepositoryArchiveStatus" {
 	}
 
 	It "fails with empty repo_name" {
-		Unarchive-Repo -RepoName "" -Token $Token -Owner $Owner
+		Set-RepositoryArchiveStatus -RepoName "" -Token $Token -Owner $Owner
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=failure"
@@ -72,7 +72,7 @@ Describe "Set-RepositoryArchiveStatus" {
 	}
 
 	It "fails with empty token" {
-		Unarchive-Repo -RepoName $RepoName -Token "" -Owner $Owner
+		Set-RepositoryArchiveStatus -RepoName $RepoName -Token "" -Owner $Owner
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=failure"
@@ -80,7 +80,7 @@ Describe "Set-RepositoryArchiveStatus" {
 	}
 
 	It "fails with empty owner" {
-		Unarchive-Repo -RepoName $RepoName -Token $Token -Owner ""
+		Set-RepositoryArchiveStatus -RepoName $RepoName -Token $Token -Owner ""
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=failure"
@@ -90,7 +90,7 @@ Describe "Set-RepositoryArchiveStatus" {
 	It "writes result=failure and error-message on exception (catch block)" {
 		Mock Invoke-WebRequest { throw "API Error" }
 
-		Unarchive-Repo -RepoName $RepoName -Token $Token -Owner $Owner
+		Set-RepositoryArchiveStatus -RepoName $RepoName -Token $Token -Owner $Owner
 
 		$output = Get-Content $env:GITHUB_OUTPUT
 		$output | Should -Contain "result=failure"
