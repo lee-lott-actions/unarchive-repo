@@ -26,7 +26,7 @@ runs:
   steps:
     - name: Unarchive Repository
       id: action
+      shell: pwsh
       run: |
-        source ${{ github.action_path }}/action.sh
-        unarchive_repo "${{ inputs.repo-name }}" "${{ inputs.token }}" "${{ inputs.owner }}"
-      shell: bash
+        . "${{ github.action_path }}/action.ps1"
+        Set-RepositoryArchiveStatus "${{ inputs.repo-name }}" "${{ inputs.token }}" "${{ inputs.owner }}"
