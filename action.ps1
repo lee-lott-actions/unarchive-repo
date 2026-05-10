@@ -25,10 +25,10 @@ function Set-RepositoryArchiveStatus {
 	$uri = "$apiBaseUrl/repos/$Owner/$RepoName"
 
 	$headers = @{
-		Authorization  = "Bearer $Token"
-		Accept         = "application/vnd.github+json"
+		Authorization = "Bearer $Token"
+		Accept = "application/vnd.github+json"
+		"X-GitHub-Api-Version" = "2026-03-10"
 		"Content-Type" = "application/json"
-		"User-Agent"   = "pwsh-action"
 	}
 
 	$body = @{ archived = $false } | ConvertTo-Json -Compress
