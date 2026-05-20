@@ -16,12 +16,9 @@ function Set-RepositoryArchiveStatus {
 		return
 	}
 
-	Write-Host "Attempting to unarchive repository $Owner/$RepoName"
-
 	# Use MOCK_API if set, otherwise default to GitHub API
 	$apiBaseUrl = $env:MOCK_API
 	if (-not $apiBaseUrl) { $apiBaseUrl = "https://api.github.com" }
-
 	$uri = "$apiBaseUrl/repos/$Owner/$RepoName"
 
 	$headers = @{
@@ -34,7 +31,8 @@ function Set-RepositoryArchiveStatus {
 	$body = @{ archived = $false } | ConvertTo-Json -Compress
 
 	try {
-		$response = Invoke-WebRequest -Uri $uri -Method Patch -Headers $headers -Body $body
+		Write-Host "Attempting to unarchive repository $Owner/$RepoName"
+		$response = Invoke-WebRequest -Uri $uri -Method Patch -Headers $headers -Body $body -SkipHttpErrorCheck
 
 		if($response.StatusCode -ne 200) {
 			$errorMsg = "Error: Failed to unarchive repository $Owner/$RepoName. HTTP Status: $($response.StatusCode)."

@@ -29,4 +29,7 @@ runs:
       shell: pwsh
       run: |
         . "${{ github.action_path }}/action.ps1"
-        Set-RepositoryArchiveStatus "${{ inputs.repo-name }}" "${{ inputs.token }}" "${{ inputs.owner }}"
+        Set-RepositoryArchiveStatus `
+          -RepoName "${{ inputs.repo-name }}" `
+          -Token "${{ inputs.token }}" `
+          -Owner "${{ inputs.owner }}"
